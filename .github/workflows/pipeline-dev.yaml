@@ -1,0 +1,33 @@
+on:
+  push:   ##se ejecunta cuando hay un push a main o a cualquier rama que empiece por feature/
+    branches:   ## especifica las ramas donde se ejecuta el workflow
+      - main
+      - feature/*
+
+##Una vez que se cumple la condición anterior, se ejecuta el workflow
+##Cada Job que se cree, se ejecuta en un servidor virtual distinto
+
+jobs:   ## define los trabajos que se van a ejecutar en el workflow
+  demo:   ## Es el nombre del job, se puede cambiar por cualquier otro nombre
+    runs-on: ubuntu-latest  ## especifica el sistema operativo del servidor virtual donde se ejecuta el job
+    steps: ## define los pasos que se van a ejecutar en el job
+      - name: checkout code ## nombre del paso, se puede cambiar por cualquier otro nombre
+        uses: actions/checkout@v3 ## uses: indica que se va a usar un actions ya existente de GitHub
+
+      - name: List files
+        run: ls -la ## lista los archivos del repositorio
+
+      - name: Print message
+        run: echo "hello world" ## run: especifica el comando que se va a ejecutar
+
+      - name: Print many messages
+        run: |    ## el símbolo | indica que se van a escribir varias líneas de comandos
+            echo "line 1"
+            echo "line 2"
+            echo "line 3"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print message job2
+        run: echo "hello world from job2"
