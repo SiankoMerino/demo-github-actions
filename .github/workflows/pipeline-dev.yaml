@@ -53,3 +53,9 @@ jobs:   ## define los trabajos que se van a ejecutar en el workflow
     steps:
       - name: Print message job2
         run: echo "hello world from job2"
+
+  variables-repository:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print variable repository
+        run: echo "the varible repository is ${{ vars.NAME }}"
