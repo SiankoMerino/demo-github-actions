@@ -59,3 +59,8 @@ jobs:   ## define los trabajos que se van a ejecutar en el workflow
     steps:
       - name: print variable repository
         run: echo "the varible repository is ${{ vars.NAME }}"
+  secreto-repositorio:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print secret repository
+        run: echo "the secret repository is ${{ secrets.SECRETO_REPOSITORIO }}"
