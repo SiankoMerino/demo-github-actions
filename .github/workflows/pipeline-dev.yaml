@@ -1,14 +1,31 @@
+name: CI/CD Pipeline Dev  ## nombre del workflow, se puede cambiar por cualquier otro nombre
+run-name: Deployment Demo  ## nombre que aparece en la interfaz de GitHub, nombre de ejecucion del workflow
 on:
   push:   ##se ejecunta cuando hay un push a main o a cualquier rama que empiece por feature/
     branches:   ## especifica las ramas donde se ejecuta el workflow
       - main
       - feature/*
+    paths:   ## especifica los archivos o carpetas que deben cambiar para que se ejecute el workflow
+      - '**.yaml'  ## cualquier archivo con extensión .yaml en cualquier carpeta
+      - '.github/workflows/**'  ## cualquier archivo en la carpeta .github/workflows
+      - 'src/**'  ## cualquier archivo en la carpeta src
+      - 'config/**'  ## cualquier archivo en la carpeta config
+      - '!docs/**'  ## excluye cualquier archivo en la carpeta docs (el símbolo ! indica exclusión)
+      - '!README.md'  ## excluye el archivo README.md
+  ##Se pueden agregar mas eventos para que se ejecute el workflow, como pull_request, schedule, etc.
+  pull_request: ##se ejecuta cuando se crea o actualiza un pull request a main o a cualquier rama que empiece por feature/
+    branches:
+      - main
+      - feature/*
+  #workflow_dispatch: ## permite ejecutar el workflow manualmente desde la interfaz de GitHub
+  #schedule:  ## permite ejecutar el workflow en un horario específico
+  #  - cron: '0 0 * * *'  ## se ejecuta todos los días a medianoche (hora UTC), el formato es: minuto hora día-del-mes mes día-de-la-semana
 
 ##Una vez que se cumple la condición anterior, se ejecuta el workflow
 ##Cada Job que se cree, se ejecuta en un servidor virtual distinto
 
 jobs:   ## define los trabajos que se van a ejecutar en el workflow
-  demo:   ## Es el nombre del job, se puede cambiar por cualquier otro nombre
+  job1:   ## Es el nombre del job, se puede cambiar por cualquier otro nombre
     runs-on: ubuntu-latest  ## especifica el sistema operativo del servidor virtual donde se ejecuta el job
     steps: ## define los pasos que se van a ejecutar en el job
       - name: checkout code ## nombre del paso, se puede cambiar por cualquier otro nombre
@@ -27,6 +44,8 @@ jobs:   ## define los trabajos que se van a ejecutar en el workflow
             echo "line 3"
 
   job2:
+    needs: job1  ## indica que este job depende de la finalización del job1 (si quieres que se ejecuten en paralelo, elimina esta línea)
+    #needs: [job1, job3]  ## si quieres que dependa de varios jobs, usa esta sintaxis
     runs-on: ubuntu-latest
     steps:
       - name: Print message job2
