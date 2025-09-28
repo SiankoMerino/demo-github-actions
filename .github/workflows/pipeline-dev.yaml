@@ -1,6 +1,7 @@
 name: CI/CD Pipeline Dev  ## nombre del workflow, se puede cambiar por cualquier otro nombre
 run-name: Deployment Demo pull request  ## nombre que aparece en la interfaz de GitHub, nombre de ejecucion del workflow
 on:
+  workflow_dispatch: ## permite ejecutar el workflow manualmente desde la interfaz de GitHub
   push:   ##se ejecunta cuando hay un push a main o a cualquier rama que empiece por feature/
     branches:   ## especifica las ramas donde se ejecuta el workflow
       - main
@@ -17,7 +18,9 @@ on:
     branches:
       - main
       - feature/*
-  #workflow_dispatch: ## permite ejecutar el workflow manualmente desde la interfaz de GitHub
+    paths:
+      - '**.md'
+  
   #schedule:  ## permite ejecutar el workflow en un horario específico
   #  - cron: '0 0 * * *'  ## se ejecuta todos los días a medianoche (hora UTC), el formato es: minuto hora día-del-mes mes día-de-la-semana
 
