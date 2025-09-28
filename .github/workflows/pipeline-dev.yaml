@@ -1,5 +1,5 @@
 name: CI/CD Pipeline Dev  ## nombre del workflow, se puede cambiar por cualquier otro nombre
-run-name: Deployment Demo  ## nombre que aparece en la interfaz de GitHub, nombre de ejecucion del workflow
+run-name: Deployment Demo pull request  ## nombre que aparece en la interfaz de GitHub, nombre de ejecucion del workflow
 on:
   push:   ##se ejecunta cuando hay un push a main o a cualquier rama que empiece por feature/
     branches:   ## especifica las ramas donde se ejecuta el workflow
