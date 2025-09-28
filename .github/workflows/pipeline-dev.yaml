@@ -64,3 +64,17 @@ jobs:   ## define los trabajos que se van a ejecutar en el workflow
     steps:
       - name: print secret repository
         run: echo "the secret repository is ${{ secrets.SECRETO_REPOSITORIO }}"
+
+  enviroment-develop:
+    runs-on: ubuntu-latest
+    environment: develop  ## especifica el entorno donde se va a desplegar el job (debe estar creado en la configuración del repositorio)
+    steps:
+      - name: print environment develop
+        run: echo "the environment is ${{ vars.NAME }}"
+
+  enviroment-production:
+    runs-on: ubuntu-latest
+    environment: production  ## especifica el entorno donde se va a desplegar el job (debe estar creado en la configuración del repositorio)
+    steps:
+      - name: print environment production
+        run: echo "the environment is ${{ vars.NAME }}"
