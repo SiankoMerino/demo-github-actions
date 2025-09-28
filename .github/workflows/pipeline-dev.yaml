@@ -78,3 +78,31 @@ jobs:   ## define los trabajos que se van a ejecutar en el workflow
     steps:
       - name: print environment production
         run: echo "the environment is ${{ vars.NAME }}"
+  
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }} ## convierte el contexto de GitHub a JSON
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }} ## convierte el contexto del job a JSON
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }} ## convierte el contexto de los pasos a JSON
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }} ## convierte el contexto del runner a JSON
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }} ## convierte el contexto de la estrategia a JSON
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }} ## convierte el contexto de la matriz a JSON
+        run: echo "$MATRIX_CONTEXT"
